@@ -1,0 +1,105 @@
+﻿@model MediReports.ViewModel.EmployeeVM
+@using MediReports.Models
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Search</title>
+</head>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<body>
+    <div>
+        @System.DateTime.Now.ToString()<br />
+        <table style="width:50%;">
+            <tr>
+                <td><a href="~/Home/MyHome">Home</a></td>
+                <td><a href="~/Employee/AddEmployee">Add Employee</a></td>
+                <td><a href="~/Employee/DeleteEmployee">Delete Employee</a></td>
+                <td><a href="~/Employee/UpdateEmployee">Update Employee</a></td>
+                <td><a href="~/Employee/Show">Present Exsisting Employees</a></td>
+            </tr>
+        </table>
+        <br />
+
+        <form id="FrmSearchEmp">
+            <br />
+            <table style="width:35%;">
+                <tr>
+                    <td><input id="SearchTxt" name="TXT" type="text" /></td>
+                    <td>
+                        <select id="Select1" name="SearchBy">
+                            <option value="FirstName">שם פרטי</option>
+                            <option value="LastName">שם משפחה</option>
+
+                        </select>
+                    </td>
+                    <td> :הכנס אות או יותר לחיפוש</td>
+                </tr>
+            </table>
+            <br />
+        </form>
+
+        <input id="Submit1" type="button" value="Search" onclick="SendData()" /><br />
+        <br />
+
+        <br />
+        <span style="color:purple">Current Employees: </span>
+
+        <div id="stutus"></div>
+
+        <br />
+        <table id="tblEmp">
+            <tr>
+                <td>Last Name</td>
+                <td>First Name</td>
+                <td>ID</td>
+                <td />
+                <td>Email</td>
+            </tr>
+        </table>
+
+        <script language="javascript">
+
+            $.get("SearchEmployeesByJson", null, BindData);
+
+            function BindData(employees) {
+                $("#stutus").text("Loading....");
+                $("#tblEmp").find("tr:gt(0)").remove();
+                var tbl = $("#tblEmp");
+                for (i = 0; i < employees.length; i++) {
+                    var newRow = "<tr>" +
+                        "<td>" + employees[i].EmpLastName + "</td>" +
+                        "<td>" + employees[i].EmpFirstName + "</td>" +
+                        "<td>" + employees[i].EmpID + "</td>" +
+                        "<td />" +
+                        "<td>" + employees[i].EmpEmail + "</td>" +
+                        "</tr>";
+                    tbl.append(newRow);
+                }
+                $("#stutus").text("");
+            }
+
+            function SendData() {
+                $("#stutus").text("Searching....");
+                var frmSearch = $("#FrmSearchEmp").serialize();
+                $.post("ShowSearch", frmSearch, BindData);
+                $("#SearchTxt").val("");
+
+            }
+
+        </script>
+
+    </div>
+</body>
+
+
+
+</html>

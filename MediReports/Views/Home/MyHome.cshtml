@@ -1,0 +1,29 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Hello World!!</title>
+</head>
+<body>
+    <div>
+        !!! שלי MVC ברוכים הבאים לעמוד.<br />
+        @System.DateTime.Now.ToString()<br />
+        <table style="width:55%;">
+            <tr>
+                <td><a href="~/Employee/AddEmployee">Add Employee</a></td>
+                <td><a href="~/Employee/DeleteEmployee">Delete Employee</a></td>
+                <td><a href="~/Employee/UpdateEmployee">Update Employee</a></td>
+                <td><a href="~/Employee/Search">Search Employee</a></td>
+                <td><a href="~/Employee/Show">Present Exsisting Employees</a></td>
+        </table>
+        
+        
+    </div>
+</body>
+</html>

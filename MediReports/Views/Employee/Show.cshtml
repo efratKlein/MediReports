@@ -1,0 +1,74 @@
+﻿@model MediReports.ViewModel.EmployeeVM
+   @using MediReports.Models;
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Show</title>
+</head>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<body>
+    <div> 
+        @System.DateTime.Now.ToString()<br />
+        <table style="width:50%;">
+            <tr>
+                <td><a href="~/Home/MyHome">Home</a></td>
+                <td><a href="~/Employee/AddEmployee">Add Employee</a></td>
+                <td><a href="~/Employee/DeleteEmployee">Delete Employee</a></td>
+                <td><a href="~/Employee/UpdateEmployee">Update Employee</a></td>
+                <td><a href="~/Employee/Search">Search Employee</a></td>
+            </tr>
+        </table>
+        <br/>
+
+        <br />
+        <span style="color:purple">Current Employees: </span>
+        <div id="stutus"></div>
+
+        <br />
+        <table id="tblEmp">
+            <tr>
+                <td>Last Name</td>
+                <td>First Name</td>
+                <td>ID</td>
+                <td />
+                <td>Email</td>
+            </tr>
+        </table>
+
+        <script language="javascript">
+            $("#stutus").text("Loading....");
+
+            $.get("GetEmployeesByJson", null, BindData1);
+
+            function BindData1(employees)
+            {
+                //$("#tblEmp").find("tr:gt(0)").remove();
+                var tbl = $("#tblEmp");
+                for (i = 0; i<employees.length; i++)
+                {
+                    var newRow = "<tr>" +
+                        "<td>" + employees[i].EmpLastName + "</td>" +
+                        "<td>" + employees[i].EmpFirstName + "</td>" +
+                        "<td>" + employees[i].EmpID + "</td>" +
+                        "<td />" +
+                        "<td>" + employees[i].EmpEmail + "</td>" +
+                        "</tr>";
+                    tbl.append(newRow);
+                }
+                $("#stutus").text("");
+            }
+
+        </script>
+       
+    </div>
+</body>
+</html>

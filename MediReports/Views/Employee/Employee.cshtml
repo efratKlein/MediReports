@@ -1,0 +1,91 @@
+﻿@model MediReports.ViewModel.EmployeeVM
+@using MediReports.Models;
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Employee</title>
+</head>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<body>
+    
+    <div>
+        <table style="width:25%;">
+            <tr>
+                <td><a href="~/Home/MyHome">Home</a></td>
+                <td><a href="~/Employee/AddEmployee">Add Employee</a></td>
+            </tr>
+        </table>
+        <br />
+        <div id="stutus"></div>
+        @*Welcom @Model.Emp.EmpFirstName @Model.Emp.EmpLastName
+    <br />
+    ID number: @Model.Emp.EmpID*@
+        <br />
+
+        <br />
+       @* <span style="color:purple">Current Employees: </span>
+       
+
+        <br />
+        <table id="tblEmp">
+        <tr>
+            <td>Last Name</td>
+            <td>First Name</td>
+            <td>ID</td>
+            <td />
+            <td>Email</td>
+        </tr>
+    </table>*@
+
+        <script language="javascript">
+            $("#stutus").text("Loading....");
+            $.get("AddEmployeesByJson",null, BindData1);
+
+            function BindData1(employees)
+            {
+                debugger
+                if (employees[0].EmpFirstName == "notLigal")
+                {
+                    $("#stutus").text("..."+" מספר הזהות" + " " +
+                            employees[0].EmpID + " "
+                            + "לא חוקי, נסו שוב");
+                }
+                else
+                {
+                    $("#delEmp").text(" !הוכנסת בהצלחה למערכת" + employees[0].EmpLastName + " " +
+                          employees[0].EmpFirstName + " " +
+                          employees[0].EmpID + " שלום");
+                }
+            }
+            function BindData(employees) {
+                $("#tblEmp").find("tr:gt(0)").remove();
+                var tbl = $("#tblEmp");
+                for (i = 0; i < employees.length; i++) {
+                    var newRow = "<tr>" +
+                        "<td>" + employees[i].EmpLastName + "</td>" +
+                        "<td>" + employees[i].EmpFirstName + "</td>" +
+                        "<td>" + employees[i].EmpID + "</td>" +
+                        "<td />" +
+                        "<td>" + employees[i].EmpEmail + "</td>" +
+                        "</tr>";
+                    tbl.append(newRow);
+                }
+                $("#stutus").text("");
+
+            }
+
+        </script>
+
+    </div>
+</body>
+
+</html>

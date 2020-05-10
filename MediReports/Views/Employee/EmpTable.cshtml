@@ -1,0 +1,37 @@
+﻿@model MediReports.ViewModel.EmployeeVM 
+@using MediReports.Models
+
+<br />
+        <span style="color:purple">Current Employees: </span>
+        <br />
+        <table>
+    <tr>
+        <td>Last Name</td>
+        <td>First Name</td>
+        <td>ID</td>
+        <td />
+        <td>Email</td>
+    </tr>
+    @foreach (Employee emp in Model.Employees)
+            {
+        <tr>
+            <td>@emp.EmpLastName</td>
+            <td>@emp.EmpFirstName</td>
+            <td>@emp.EmpID</td>
+            <td />
+            <td>@emp.EmpEmail</td>
+        </tr>
+    }
+
+</table>
+
+   @* @{
+        WebGrid obj = new WebGrid(Model.Employees);
+    }
+
+    @obj.GetHtml();*@
+
+
+
+
+

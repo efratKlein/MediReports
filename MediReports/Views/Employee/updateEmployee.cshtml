@@ -1,0 +1,28 @@
+﻿@model MediReports.ViewModel.EmployeeVM
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>updateEmployee</title>
+</head>
+<body>
+    <div> 
+        @System.DateTime.Now.ToString()<br />
+        <table style="width:50%;">
+            <tr>
+                <td><a href="~/Home/MyHome">Home</a></td>
+                <td><a href="~/Employee/AddEmployee">Add Employee</a></td>
+                <td><a href="~/Employee/DeleteEmployee">Delete Employee</a></td>
+                <td><a href="~/Employee/Search">Search Employee</a></td>
+                <td><a href="~/Employee/Show">Present Exsisting Employees</a></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

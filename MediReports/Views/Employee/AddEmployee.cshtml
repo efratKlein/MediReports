@@ -1,0 +1,101 @@
+﻿@model MediReports.Models.Employee
+   
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddEmployee</title>
+</head>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<body>
+    <div>
+        @System.DateTime.Now.ToString()<br />
+        <table style="width:50%;">
+            <tr>
+                <td><a href="~/Home/MyHome">Home</a></td>
+                <td><a href="~/Employee/DeleteEmployee">Delete Employee</a></td>
+                <td><a href="~/Employee/UpdateEmployee">Update Employee</a></td>
+                <td><a href="~/Employee/Search">Search Employee</a></td>
+                <td><a href="~/Employee/Show">Present Exsisting Employees</a></td>
+            </tr>
+        </table>
+        <br/>
+       @* @using (Html.BeginForm("Submit", "Employee", FormMethod.Post))
+    {*@
+        <form id="AddFrm">
+            <i>Employee Number:</i><input id="EmpNum" name="EmpNum" type="text" />    @Html.ValidationMessageFor(x => x.EmpNum)
+            <br />
+            <i>Role Type Number:</i> <input id="EmpType" name="EmpType" type="text" />    @Html.ValidationMessageFor(x => x.EmpType)
+            <br />
+            <i>First Name:</i> <input id="EmpFirstName" name="EmpFirstName" type="text" />    @Html.ValidationMessageFor(x => x.EmpFirstName)
+            <br />
+            <i>Last Name:</i> <input id="EmpLastName" name="EmpLastName" type="text" />    @Html.ValidationMessageFor(x => x.EmpLastName)
+            <br />
+            <i>ID:</i> <input id="EmpID" name="EmpID" type="text" /><i id="stutus"></i> @Html.ValidationMessageFor(x => x.EmpID)
+            <br />
+            <i>Password:</i> <input id="EmpPass" name="EmpPass" type="text" />    @Html.ValidationMessageFor(x => x.EmpPass)
+            <br />
+            <i>Email:</i> <input id="EmpEmail" name="EmpEmail" type="text" />    @Html.ValidationMessageFor(x => x.EmpEmail)
+            <br />
+        </form>
+            <input id="Submit1" type="button" value="Add" onclick="welcom()"/>
+            <br />
+        <br />
+        <div id="AddEmp"></div>
+
+        <script language="javascript">
+            $.get("AddEmployeesByJson", null, presentAddEmp);
+
+            function presentAddEmp(employees)
+            {
+                debugger
+                if (employees[0].EmpID != null)
+                {
+                    $("#stutus").text("")
+                    if (employees[0].EmpFirstName == "exsist")
+                    {
+                        $("#stutus").text(" ...מספר הזהות קיים במערכת, נסו שוב");
+                        $("#EmpID").val("");
+                    }
+                    else
+                    {
+                        if (employees[0].EmpFirstName == "notLigal") {
+                            $("#stutus").text(" ...מספר הזהות לא חוקי, נסו שוב");
+                            $("#EmpID").val("");
+
+                        }
+                        else {
+                            $("#AddEmp").text(" !הוכנסת בהצלחה למערכת" + " " + employees[0].EmpLastName + " " +
+                                  employees[0].EmpFirstName + " " +
+                                   " שלום");
+                            $("#EmpType").val("");
+                            $("#EmpFirstName").val("");
+                            $("#EmpLastName").val("");
+                            $("#EmpNum").val("");
+                            $("#EmpID").val("");
+                            $("#EmpPass").val("");
+                            $("#EmpEmail").val("");
+                        }
+                    }
+                }
+            }
+
+            function welcom()
+            {
+                debugger
+                var frmAdd = $("#AddFrm").serialize();
+                $.post("submit", frmAdd, presentAddEmp);
+            }
+
+        </script>
+    </div>
+</body>
+</html>

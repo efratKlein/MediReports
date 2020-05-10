@@ -1,0 +1,87 @@
+﻿@model MediReports.ViewModel.EmployeeVM
+@using MediReports.Models
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DeleteEmployee</title>
+</head>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<body>
+    <div>
+        @System.DateTime.Now.ToString()<br />
+        <table style="width:50%;">
+            <tr>
+                <td><a href="~/Home/MyHome">Home</a></td>
+                <td><a href="~/Employee/AddEmployee">Add Employee</a></td>
+                <td><a href="~/Employee/UpdateEmployee">Update Employee</a></td>
+                <td><a href="~/Employee/Search">Search Employee</a></td>
+                <td><a href="~/Employee/Show">Present Exsisting Employees</a></td>
+            </tr>
+        </table>
+        <br />
+        <form id="delFrm">
+            <br />
+            <input id="empID" name="TXTID" type="text" maxlength="9"/>  :הזן מספר זהות
+            <br />
+
+        </form>
+        <br />
+        <input id="Submit1" type="button" value="Delete" onclick="goodBy()" />
+        <br />
+
+        <br />
+        <div id="delEmp" ></div>
+        <br />
+        <script language="javascript">
+            $.get("DeleteEmployeeByJson", null, presentDelEmp);
+            function presentDelEmp(employees)
+            {
+                debugger
+               
+                if (employees[0].EmpFirstName != "notLigal") {
+                    if (employees[0].EmpFirstName == "notExist") {
+
+                        $("#delEmp").text("..."+"לא קיים עובד בעל מספר זהות" + " " +
+                            employees[0].EmpID + " "
+                            + "במערכת, " + "נסו שוב" );
+                    }
+                    else {
+                        $("#delEmp").text(" !" + employees[0].EmpLastName + " " +
+                          employees[0].EmpFirstName + " " +
+                          employees[0].EmpID + " להתראות");
+                    }
+                }
+                else
+                {
+                    $("#delEmp").text("..."+" מספר הזהות" + " " +
+                            employees[0].EmpID + " "
+                            + "לא חוקי, נסו שוב");
+                }
+                
+                
+                                 
+            }
+
+            function goodBy()
+            {
+                debugger
+                var frmDel = $("#delFrm").serialize();
+                $.post("Delete", frmDel, presentDelEmp);
+                $("#empID").val("")
+
+            }
+
+        </script>
+    </div>
+</body>
+
+</html>
